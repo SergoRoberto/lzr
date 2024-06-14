@@ -5,7 +5,6 @@ import (
 	"encoding/binary"
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -42,6 +41,7 @@ func createStartTestRequest() *startTestRequest {
 func (h *HandshakeMod) GetData(dst string) []byte {
 
 	request := createStartTestRequest()
+
 	var buffer bytes.Buffer
 	if err := binary.Write(&buffer, binary.BigEndian, request); err != nil {
 		fmt.Printf("Failed to encode request: %v\n", err)
@@ -51,9 +51,14 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	fmt.Println(data)
-	if strings.Contains(data, "+<M") {
-		return "bandwidth-test"
+	if bytes.Equal([]byte(data), []byte("\x01\x00\x00\x00")) {
+		return "bandwidthtest, Authentication: false"
+	}
+	if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
+		return "bandwidthtest, Authentication: true, Version RouterOS: <6.43"
+	}
+	if bytes.Equal([]byte(data), []byte("\x03\x00\x00\x00")) {
+		return "bandwidthtest, Authentication: true, Version RouterOS: >=6.43"
 	}
 	return ""
 }
