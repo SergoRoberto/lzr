@@ -2,6 +2,7 @@ import socket
 import struct
 
 
+
 # Структура пакета Start Test Request протокола Bandwith-test
 def create_start_test_request():
     protocol = 1 # TCP
