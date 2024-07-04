@@ -3,12 +3,14 @@ package bin
 import (
 	"time"
 	//"context"
-	"fmt"
 	"log"
-	"lzr"
 	"os"
 	"runtime/pprof"
 	"sync"
+
+	"fmt"
+
+	"github.com/stanford-esrg/lzr"
 )
 
 func LZRMain() {

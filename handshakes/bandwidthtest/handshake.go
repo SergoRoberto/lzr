@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/SergoRoberto/lzr"
+	"github.com/stanford-esrg/lzr"
 )
 
 // Handshake implements the lzr.Handshake interface
