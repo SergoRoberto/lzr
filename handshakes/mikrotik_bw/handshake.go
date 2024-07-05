@@ -1,4 +1,4 @@
-package microtik_bw
+package mikrotik_bw
 
 import (
 	"bytes"
@@ -10,8 +10,7 @@ import (
 type HandshakeMod struct {
 }
 
-/*
-type startTestRequest struct {
+/* type startTestRequest struct {
 	protocol           uint8
 	direction          uint8
 	random_data        uint8
@@ -51,18 +50,18 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 	if bytes.Equal([]byte(data), []byte("\x01\x00\x00\x00")) {
-		return "microtik_bw"
+		return "mikrotik_bw"
 	}
 	/* if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
-		return "bandwidthtest, Authentication: true, Version RouterOS: <6.43"
+		return "mikrotik_bw, Authentication: true, Version RouterOS: <6.43"
 	}
 	if bytes.Equal([]byte(data), []byte("\x03\x00\x00\x00")) {
-		return "bandwidthtest, Authentication: true, Version RouterOS: >=6.43"
+		return "mikrotik_bw, Authentication: true, Version RouterOS: >=6.43"
 	} */
 	return ""
 }
 
 func RegisterHandshake() {
 	var h HandshakeMod
-	lzr.AddHandshake("microtik_bw", &h)
+	lzr.AddHandshake("mikrotik_bw", &h)
 }
