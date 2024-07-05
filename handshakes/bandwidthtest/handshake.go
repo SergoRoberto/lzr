@@ -55,12 +55,12 @@ func (h *HandshakeMod) Verify(data string) string {
 	if bytes.Equal([]byte(data), []byte("\x01\x00\x00\x00")) {
 		return "bandwidthtest"
 	}
-	/* if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
+	if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
 		return "bandwidthtest, Authentication: true, Version RouterOS: <6.43"
 	}
 	if bytes.Equal([]byte(data), []byte("\x03\x00\x00\x00")) {
 		return "bandwidthtest, Authentication: true, Version RouterOS: >=6.43"
-	} */
+	}
 	return ""
 }
 
