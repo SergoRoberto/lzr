@@ -1,10 +1,7 @@
-package bandwidthtest
+package microtik_bw
 
 import (
 	"bytes"
-	"encoding/binary"
-	"fmt"
-	"os"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -13,6 +10,7 @@ import (
 type HandshakeMod struct {
 }
 
+/*
 type startTestRequest struct {
 	protocol           uint8
 	direction          uint8
@@ -36,35 +34,35 @@ func createStartTestRequest() *startTestRequest {
 		local_tx_speed:     0,    // unlim
 	}
 	return request
-}
+} */
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-	/* data := []byte("") // just wait for banner
-	return data */
-	request := createStartTestRequest()
+	data := []byte("") // just wait for banner
+	return data
+	/* request := createStartTestRequest()
 
 	var buffer bytes.Buffer
 	if err := binary.Write(&buffer, binary.BigEndian, request); err != nil {
 		fmt.Printf("Failed to encode request: %v\n", err)
 		os.Exit(1)
 	}
-	return buffer.Bytes()
+	return buffer.Bytes() */
 }
 
 func (h *HandshakeMod) Verify(data string) string {
 	if bytes.Equal([]byte(data), []byte("\x01\x00\x00\x00")) {
-		return "bandwidthtest"
+		return "microtik_bw"
 	}
-	if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
+	/* if bytes.Equal([]byte(data), []byte("\x02\x00\x00\x00")) {
 		return "bandwidthtest, Authentication: true, Version RouterOS: <6.43"
 	}
 	if bytes.Equal([]byte(data), []byte("\x03\x00\x00\x00")) {
 		return "bandwidthtest, Authentication: true, Version RouterOS: >=6.43"
-	}
+	} */
 	return ""
 }
 
 func RegisterHandshake() {
 	var h HandshakeMod
-	lzr.AddHandshake("bandwidthtest", &h)
+	lzr.AddHandshake("microtik_bw", &h)
 }
