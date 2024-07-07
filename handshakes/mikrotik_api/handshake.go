@@ -12,7 +12,6 @@ type HandshakeMod struct {
 }
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-	//data := []byte("") // just wait for banner
 	reqHex := "3a0000002f00000002000040020f0001003d050000000000000000000000002f000000000000000000401f0000000000000000000000000000000000"
 	decoded, err := hex.DecodeString(reqHex)
 	if err != nil {
