@@ -24,9 +24,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 
-	if data == "" || !isASCII(data) {
-		return ""
-	} else if strings.Contains(ToLower(data), "version") {
+	if strings.Contains(ToLower(data), "version") {
 		return "mikrotik_wb"
 	}
 	return ""
