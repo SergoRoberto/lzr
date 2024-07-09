@@ -1,9 +1,8 @@
 package mikrotik_wb
 
 import (
+	"bytes"
 	"encoding/hex"
-	"strings"
-	"unicode/utf8"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -23,8 +22,12 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-
-	if strings.Contains(ToLower(data), "version") {
+	bytesData := []byte(data)
+	if len(bytesData) == 0 {
+		return ""
+	}
+	dl := bytes.ToLower(bytesData)
+	if bytes.Contains(dl, []byte("version")) {
 		return "mikrotik_wb"
 	}
 	return ""
@@ -33,24 +36,4 @@ func (h *HandshakeMod) Verify(data string) string {
 func RegisterHandshake() {
 	var h HandshakeMod
 	lzr.AddHandshake("mikrotik_wb", &h)
-}
-
-func ToLower(s string) string {
-	b := make([]byte, len(s))
-	for i, c := range s {
-		if c >= 'A' && c <= 'Z' {
-			c += 32
-		}
-		b[i] = byte(c)
-	}
-	return string(b)
-}
-
-func isASCII(s string) bool {
-	for i := 0; i < len(s); i++ {
-		if s[i] >= utf8.RuneSelf {
-			return false
-		}
-	}
-	return true
 }
