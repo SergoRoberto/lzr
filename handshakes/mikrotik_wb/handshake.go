@@ -1,6 +1,7 @@
-package pop3
+package mikrotik_wb
 
 import (
+	"encoding/hex"
 	"strings"
 	"unicode/utf8"
 
@@ -12,28 +13,29 @@ type HandshakeMod struct {
 }
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-	data := []byte("")
-	return data
+	reqHex := "12026C6973740000000000000000008000000000"
+	decoded, err := hex.DecodeString(reqHex)
+	if err != nil {
+		return []byte("")
+	}
+
+	return decoded
 }
 
 func (h *HandshakeMod) Verify(data string) string {
+
 	if data == "" || !isASCII(data) {
 		return ""
-	} else if strings.Contains(ToLower(data), "pop3") ||
-		strings.Contains(data, "+OK") || strings.Contains(data, "* OK") {
-		return "pop3"
+	} else if strings.Contains(ToLower(data), "version") {
+		return "mikrotik_wb"
 	}
 	return ""
-
 }
 
 func RegisterHandshake() {
 	var h HandshakeMod
-	lzr.AddHandshake("pop3", &h)
+	lzr.AddHandshake("mikrotik_wb", &h)
 }
-
-//more efficient string toLower
-//https://github.com/golang/go/issues/17859
 
 func ToLower(s string) string {
 	b := make([]byte, len(s))
