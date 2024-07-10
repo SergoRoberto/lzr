@@ -1,9 +1,8 @@
 package mikrotik_wb
 
 import (
-	"bytes"
 	"encoding/hex"
-	"fmt"
+	"strings"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -23,15 +22,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := []byte(data)
-	if len(bytesData) == 0 {
-		return ""
-	}
-	fmt.Println(data)
-	fmt.Println("\ufffd\u0002list\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\ufffd\u0000\u0000\u0000\u0000")
-	fmt.Println(bytesData)
-	fmt.Println([]byte("\ufffd\u0002list\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\ufffd\u0000\u0000\u0000\u0000"))
-	if bytes.Contains(bytesData, []byte("\ufffd\u0002list\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\ufffd\u0000\u0000\u0000\u0000")) {
+	if strings.Contains(data, "\", version: \"") {
 		return "mikrotik_wb"
 	}
 	return ""
