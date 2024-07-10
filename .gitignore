@@ -7,5 +7,5 @@ LZR
 lzr
 cmd/lzr/lzr
 data/
-.DS_Store
+*.DS_Store
 # handshakes/bandwidthtest/PoC.py
