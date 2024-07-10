@@ -26,8 +26,7 @@ func (h *HandshakeMod) Verify(data string) string {
 	if len(bytesData) == 0 {
 		return ""
 	}
-	dl := bytes.ToLower(bytesData)
-	if bytes.Contains(dl, []byte("version")) {
+	if bytes.Contains(bytesData, []byte("\ufffd\u0002list\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0001\u0000\ufffd\u0000\u0000\u0000\u0000")) {
 		return "mikrotik_wb"
 	}
 	return ""
