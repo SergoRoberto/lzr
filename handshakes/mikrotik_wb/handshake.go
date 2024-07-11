@@ -23,7 +23,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	if strings.Contains(data, "\", version: \"") || bytes.Contains([]byte(data), []byte("\u0013\u0002list")) {
+	if strings.Contains(data, "\", version: \"") || bytes.Contains([]byte(data), []byte("\u0002list")) {
 		return "mikrotik_wb"
 	}
 	return ""
