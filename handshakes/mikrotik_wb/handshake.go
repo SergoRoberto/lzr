@@ -1,7 +1,6 @@
 package mikrotik_wb
 
 import (
-	"bytes"
 	"encoding/hex"
 	"strings"
 
@@ -23,7 +22,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	if strings.Contains(data, "\", version: \"") || bytes.Contains([]byte(data), []byte("\u0002list")) {
+	if strings.Contains(hex.EncodeToString([]byte(data)), "026c69737400000000000000010080") {
 		return "mikrotik_wb"
 	}
 	return ""
