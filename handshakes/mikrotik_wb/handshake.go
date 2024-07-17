@@ -22,8 +22,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := []byte(data)
-	if strings.Contains(hex.EncodeToString(bytesData), "026c69737400000000000000010080") || strings.Contains(hex.EncodeToString(bytesData), "026c697374000000000000000200800000000002") {
+	bytesData := hex.EncodeToString([]byte(data))
+	if strings.Contains(bytesData, "026c69737400000000000000010080") || strings.Contains(bytesData, "026c697374000000000000000200800000000002") {
 		return "mikrotik_wb"
 	}
 	return ""
