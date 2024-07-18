@@ -11,7 +11,7 @@ type HandshakeMod struct {
 }
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-	return []byte{
+	/* return []byte{
 		0x16,       // Тип сообщения: Handshake
 		0x03, 0x01, // Версия: TLS 1.0
 		0x00, 0x2d, // Длина: 45 байт
@@ -31,7 +31,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 		0x01,       // Длина списка compression methods
 		0x00,       // Compression method: null
 		0x00, 0x00, // Длина расширений
-	}
+	} */
+	return []byte("")
 }
 
 func (h *HandshakeMod) Verify(data string) string {
