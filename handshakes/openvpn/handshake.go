@@ -1,6 +1,9 @@
 package openvpn
 
 import (
+	"encoding/hex"
+	"strings"
+
 	"github.com/stanford-esrg/lzr"
 )
 
@@ -32,8 +35,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := []byte(data)
-	if len(bytesData) > 1 && (bytesData[0] == 0x15 || bytesData[0] == 0x16) {
+	bytesData := hex.EncodeToString([]byte(data))
+	if strings.Contains(bytesData, "00e40") {
 		return "openvpn"
 	}
 	return ""
