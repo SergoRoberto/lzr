@@ -1,8 +1,6 @@
 package openvpn
 
 import (
-	"fmt"
-
 	"github.com/stanford-esrg/lzr"
 )
 
@@ -34,9 +32,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	fmt.Println(data)
 	bytesData := []byte(data)
-	if bytesData[0] == 0x15 || bytesData[0] == 0x16 {
+	if len(bytesData) > 1 && (bytesData[0] == 0x15 || bytesData[0] == 0x16) {
 		return "openvpn"
 	}
 	return ""
