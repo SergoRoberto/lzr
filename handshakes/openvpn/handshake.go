@@ -36,7 +36,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := hex.EncodeToString([]byte(data))
-	if strings.Contains(bytesData, "00e40") {
+	if strings.HasPrefix(bytesData, "000e40") {
 		return "openvpn"
 	}
 	return ""
