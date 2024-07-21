@@ -20,7 +20,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := hex.EncodeToString([]byte(data))
-	if strings.Contains(bytesData, "05") {
+	if strings.HasPrefix(bytesData, "05") {
 		return "socks"
 	}
 	return ""
