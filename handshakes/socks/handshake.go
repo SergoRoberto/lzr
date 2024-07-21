@@ -1,6 +1,9 @@
 package socks
 
 import (
+	"encoding/hex"
+	"strings"
+
 	"github.com/stanford-esrg/lzr"
 )
 
@@ -16,8 +19,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := []byte(data)
-	if bytesData[0] == 0x05 {
+	bytesData := hex.EncodeToString([]byte(data))
+	if strings.Contains(bytesData, "05") {
 		return "socks"
 	}
 	return ""
