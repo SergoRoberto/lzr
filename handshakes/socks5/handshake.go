@@ -1,4 +1,4 @@
-package socks
+package socks5
 
 import (
 	"encoding/hex"
@@ -12,7 +12,7 @@ type HandshakeMod struct {
 
 func (h *HandshakeMod) GetData(dst string) []byte {
 	return []byte{
-		0x05, // Версия SOCKS
+		0x05, // Версия SOCKS5
 		0x01, // Количество методов аутентификации
 		0x00, // Метод аутентификации: No authentication
 	}
@@ -21,12 +21,12 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := hex.EncodeToString([]byte(data))
 	if strings.HasPrefix(bytesData, "05") {
-		return "socks"
+		return "socks5"
 	}
 	return ""
 }
 
 func RegisterHandshake() {
 	var h HandshakeMod
-	lzr.AddHandshake("socks", &h)
+	lzr.AddHandshake("socks5", &h)
 }
