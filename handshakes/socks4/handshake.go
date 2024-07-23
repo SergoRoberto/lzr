@@ -2,11 +2,8 @@ package socks4
 
 import (
 	"bytes"
-	"encoding/binary"
 	"encoding/hex"
 	"fmt"
-	"net"
-	"strconv"
 	"strings"
 
 	"github.com/stanford-esrg/lzr"
@@ -20,7 +17,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 	buffer := new(bytes.Buffer)
 	buffer.WriteByte(0x04) // Версия SOCKS
 	buffer.WriteByte(0x01) // Команда CONNECT
-	ipPort := strings.Split(dst, ":")
+	/* ipPort := strings.Split(dst, ":")
 
 	port, err := strconv.Atoi(ipPort[1])
 	if err != nil {
@@ -36,7 +33,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 	if ip == nil {
 		return []byte("")
 	}
-	buffer.Write(ip)
+	buffer.Write(ip) */
 
 	// Идентификатор пользователя (пустая строка)
 	buffer.WriteByte(0x00)
