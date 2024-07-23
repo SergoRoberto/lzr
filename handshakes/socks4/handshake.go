@@ -22,7 +22,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := hex.EncodeToString([]byte(data))
-	if strings.HasPrefix(bytesData, "005") {
+	if strings.HasPrefix(bytesData, "005") || strings.HasPrefix(bytesData, "006") {
 		return "socks4"
 	}
 	return ""
