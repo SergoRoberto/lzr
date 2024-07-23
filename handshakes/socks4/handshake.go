@@ -2,7 +2,9 @@ package socks4
 
 import (
 	"bytes"
+	"encoding/hex"
 	"fmt"
+	"strings"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -41,8 +43,8 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := []byte(data)
-	if len(bytesData) == 8 && bytesData[0] == byte(0x00) && (byte(bytesData[1]) == byte(0x5a) || byte(bytesData[1]) == byte(0x5b) || byte(bytesData[1]) == byte(0x5c) || byte(bytesData[1]) == byte(0x5d)) {
+	bytesData := hex.EncodeToString([]byte(data))
+	if strings.HasPrefix(bytesData, "005a") || strings.HasPrefix(bytesData, "005b") || strings.HasPrefix(bytesData, "005c") || strings.HasPrefix(bytesData, "005d") {
 		return "socks4"
 	}
 	return ""
