@@ -34,7 +34,7 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := []byte(data)
-	if len(bytesData) == 8 && bytesData[0] == byte(0x00) && bytes.Contains([]byte{0x5a, 0x5b, 0x5c, 0x5d}, bytesData[1:2]) {
+	if len(bytesData) == 8 && bytesData[0] == byte(0x00) && bytes.Contains([]byte{0x5a, 0x5b, 0x5c, 0x5d, 0x5e}, bytesData[1:2]) {
 		return "socks4"
 	}
 	return ""
