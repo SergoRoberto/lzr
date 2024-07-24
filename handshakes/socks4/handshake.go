@@ -2,6 +2,7 @@ package socks4
 
 import (
 	"encoding/hex"
+	"fmt"
 	"strings"
 
 	"github.com/stanford-esrg/lzr"
@@ -11,7 +12,7 @@ type HandshakeMod struct {
 }
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-
+	fmt.Println(dst)
 	return []byte{
 		0x04, // Версия SOCKS
 		0x01, // Команда CONNECT
