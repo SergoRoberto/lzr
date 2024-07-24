@@ -1,9 +1,8 @@
 package socks4
 
 import (
-	"encoding/hex"
-	"fmt"
-	"strings"
+	"bytes"
+	"net"
 
 	"github.com/stanford-esrg/lzr"
 )
@@ -12,18 +11,30 @@ type HandshakeMod struct {
 }
 
 func (h *HandshakeMod) GetData(dst string) []byte {
-	fmt.Println(dst)
-	return []byte{
-		0x04, // Версия SOCKS
-		0x01, // Команда CONNECT
-		0x00,
+	buffer := new(bytes.Buffer)
+	buffer.WriteByte(0x04) // Версия SOCKS
+	buffer.WriteByte(0x01) // Команда CONNECT
+	// Записываем порт назначения
+	buffer.WriteByte(0x00) // порт вытащить нельзя
+	buffer.WriteByte(0x00) //
+
+	// Записываем IP-адрес назначения
+	ip := net.ParseIP(dst).To4()
+	if ip == nil {
+		return []byte("")
 	}
+	buffer.Write(ip)
+
+	// Идентификатор пользователя (пустая строка)
+	buffer.WriteByte(0x00)
+
+	return buffer.Bytes()
 
 }
 
 func (h *HandshakeMod) Verify(data string) string {
-	bytesData := hex.EncodeToString([]byte(data))
-	if strings.HasPrefix(bytesData, "005") || strings.HasPrefix(bytesData, "006") {
+	bytesData := []byte(data)
+	if len(bytesData) == 8 && bytesData[0] == byte(0x00) && bytes.Contains([]byte{0x5a, 0x5b, 0x5c, 0x5d}, bytesData[1:2]) {
 		return "socks4"
 	}
 	return ""
