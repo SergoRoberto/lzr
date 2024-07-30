@@ -11,13 +11,13 @@ func (h *HandshakeMod) GetData(dst string) []byte {
 	return []byte{
 		0x05, // Версия SOCKS5
 		0x01, // Количество методов аутентификации
-		0x00, // Метод аутентификации: No authentication
+		0x02, // Метод аутентификации: Имя пользователя / пароль
 	}
 }
 
 func (h *HandshakeMod) Verify(data string) string {
 	bytesData := []byte(data)
-	if len(bytesData) == 2 && bytesData[0] == byte(0x05) {
+	if len(bytesData) == 2 && bytesData[0] == byte(0x05) && (bytesData[1] == byte(0x02) || bytesData[1] == byte(0xFF)) {
 		return "socks5"
 	}
 	return ""
